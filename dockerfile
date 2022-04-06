@@ -2,20 +2,19 @@
 
 FROM ubuntu:20.04
 
-USER 0
-
-
-
 #---------------------------SETUP ENV VARIABLES------------------------------#
 
 ENV HOME=/home \
     USER=test \
+    #Which Window manager to use (used in c_vnc.sh)
+    WM=icewm \
     TERM=xterm \
     STARTUPDIR=/dockerstartup \
     INST_SCRIPTS=/headless/install \
     NO_VNC_HOME=/headless/noVNC \
     #Line used to skip the keyboard layout prompt
     DEBIAN_FRONTEND=noninteractive \ 
+    DISPLAY=:1 \
     VNC_COL_DEPTH=24 \
     VNC_RESOLUTION=1280x1024 \
     VNC_PASSWD=vncpassword 
@@ -43,13 +42,13 @@ RUN find $INSTALL_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
 #-------Installs------
 RUN exec $INSTALL_SCRIPTS/installs/i_utils.sh
-RUN exec $INSTALL_SCRIPTS/installs/i_icewm.sh
 RUN exec $INSTALL_SCRIPTS/installs/i_vnc.sh
+RUN exec $INSTALL_SCRIPTS/installs/i_icewm.sh
 #RUN exec $INSTALL_SCRIPTS/installs/i_x11.sh
 
 
 #-------Configs------
-RUN exec $INSTALL_SCRIPTS/config/c_vnc.sh
+RUN exec $INSTALL_SCRIPTS/configs/c_vnc.sh
 
 
 #--------Starts----
@@ -71,3 +70,5 @@ RUN cat /etc/systemd/system/xvnc@.service
 
 
 RUN env
+
+USER 1000
