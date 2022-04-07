@@ -32,13 +32,14 @@ ENV DISPLAY=:1 \
 EXPOSE $VNC_PORT $NO_VNC_PORT
 
 
-ADD ./scripts/ $INSTALL_SCRIPTS/
-
+ADD ./scripts/installs/ $INSTALL_SCRIPTS/installs/
+ADD ./scripts/configs/ $INSTALL_SCRIPTS/configs/
+ADD ./scripts/startup/ $STARTUPDIR/
 
 
 #-----------------------------RUN INSTALLS--------------------------------------#
 RUN find $INSTALL_SCRIPTS -name '*.sh' -exec chmod a+x {} +
-
+RUN find $STARTUPDIR -name '*.sh' -exec chmod a+x {} +
 
 #-------Installs------
 RUN exec $INSTALL_SCRIPTS/installs/i_utils.sh
@@ -51,24 +52,14 @@ RUN exec $INSTALL_SCRIPTS/installs/i_icewm.sh
 RUN exec $INSTALL_SCRIPTS/configs/c_vnc.sh
 
 
-#--------Starts----
-RUN exec $INSTALL_SCRIPTS/startup/s_vnc.sh
 
-
-
-RUN cat /etc/tigervnc/vncserver-config-defaults 
-RUN cat /etc/tigervnc/vncserver-config-mandatory
 
 RUN cat $HOME/.vnc/config
 RUN cat $HOME/.vnc/passwd
-RUN cat $HOME/.vnc/host:display#.log
-
-RUN cat /etc/X11/xorg.conf.d/10-vnc.conf
-
-RUN cat /etc/systemd/system/xvnc.socket
-RUN cat /etc/systemd/system/xvnc@.service
 
 
 RUN env
 
 USER 1000
+
+ENTRYPOINT ["/dockerstartup/s_vnc.sh"]
