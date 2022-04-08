@@ -6,8 +6,8 @@ FROM ubuntu:20.04
 
 ENV HOME=/home \
     USER=test \
-    #Which Window manager to use (used in c_vnc.sh)
-    WM=icewm \
+    #Which Window manager to use (used in c_vnc.sh) Must be called the same as in /usr/share/xsessions
+    WM=icewm-session \
     TERM=xterm \
     STARTUPDIR=/dockerstartup \
     INSTALL_SCRIPTS=/headless/install \

@@ -19,13 +19,15 @@ ls -lhaR /usr/bin/
 ls -lh $HOME/.vnc/
 cat $HOME/.vnc/xstartup
 cat $HOME/.vnc/passwd
-
+if [ ! -f "$HOME/.vnc/xvnc.log" ]; then
+    touch $HOME/.vnc/xvnc.log
+fi
+#----------------------
 
 # /usr/bin/vncserver command does correctly context (had issues with $DISPLAY var) and therefor should not be used but xvnc instead  
 #vncserver $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION
 
-/usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION  -rfbauth "${HOME}/.vnc/passwd"
- 
+/usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION  -rfbauth "${HOME}/.vnc/passwd" > $HOME/.vnc/xnvc.log & 
 
 echo -e "\n\n------------------ VNC environment started ------------------"
 echo -e "\nVNCSERVER started on DISPLAY= $DISPLAY \n\t=> connect via VNC viewer with $VNC_IP:$VNC_PORT"

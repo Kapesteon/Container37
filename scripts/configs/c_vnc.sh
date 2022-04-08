@@ -15,7 +15,7 @@ chmod 600 $PASSWD_PATH
 #2
 mkdir /etc/tigerVNC
 touch /etc/tigerVNC/vncserver.users
-echo "1:${USER}" > /etc/tigerVNC/vncserver.users
+echo "0:${USER}" > /etc/tigerVNC/vncserver.users
 
 #3
 touch $HOME/.vnc/config
@@ -34,7 +34,12 @@ echo "#!/bin/bash" >>$HOME/.vnc/xstartup
 echo "PATH=/usr/bin:/usr/sbin" >>$HOME/.vnc/xstartup
 echo "unset SESSION_MANAGER" >>$HOME/.vnc/xstartup
 echo "unset DBUS_SESSION_BUS_ADDRESS" >>$HOME/.vnc/xstartup
-echo "exec $(cat /usr/share/xsessions/icewm-session.desktop | grep -w Exec | cut -d "/" -f 4) &" >>$HOME/.vnc/xstartup
+echo "exec $(cat /usr/share/xsessions/${WM}.desktop | grep -w Exec | cut -d "/" -f 4) &" >>$HOME/.vnc/xstartup
+
+cat /etc/tigerVNC/vncserver.users #DEBUG
+cat $HOME/.vnc/xstartup #DEBUG
+cat $HOME/.vnc/config #DEBUG
+
 #Run the exec value of the desktop (https://stackoverflow.com/questions/59709214/tigervncserver-crashes-unless-started-with-sudo)
 
 
