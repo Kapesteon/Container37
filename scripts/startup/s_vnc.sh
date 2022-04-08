@@ -12,15 +12,29 @@
 #systemctl start vncserver@:1
 VNC_IP=$(hostname -i)
 
+#----------DEBUG------------ 
+tail -f $STARTUPDIR/*.log $HOME/.vnc/*$DISPLAY.log
+echo "Display=${DISPLAY}"
+ls -lhaR /usr/bin/
 ls -lh $HOME/.vnc/
 cat $HOME/.vnc/xstartup
+cat $HOME/.vnc/passwd
 
-vncserver $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION 
+
+# /usr/bin/vncserver command does correctly context (had issues with $DISPLAY var) and therefor should not be used but xvnc instead  
+#vncserver $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION
+
+/usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION  -rfbauth "${HOME}/.vnc/passwd"
+ 
+
 echo -e "\n\n------------------ VNC environment started ------------------"
 echo -e "\nVNCSERVER started on DISPLAY= $DISPLAY \n\t=> connect via VNC viewer with $VNC_IP:$VNC_PORT"
 
+
+
 $STARTUPDIR/s_wm.sh
 
+wait $!
 
 #vncsession ${USER} :1
 #service vncserver@.service start #We may not use systemctl here as the system has not been booted with systemd as init system 
