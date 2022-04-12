@@ -1,0 +1,9 @@
+{
+  "name": "novnc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@novnc/novnc": "^1.3.0"
+  }
+}
