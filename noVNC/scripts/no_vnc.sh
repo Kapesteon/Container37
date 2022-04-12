@@ -4,6 +4,7 @@ set -e
 set -u
 
 echo "Install noVNC - HTML5 based VNC viewer"
+# TODO Définir $NO_VNC_HOME
 mkdir -p $NO_VNC_HOME/utils/websockify
 wget -qO- https://github.com/novnc/noVNC/archive/v1.0.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME
 # use older version of websockify to prevent hanging connections on offline containers, see https://github.com/ConSol/docker-headless-vnc-container/issues/50
