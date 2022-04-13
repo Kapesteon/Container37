@@ -31,7 +31,7 @@ function setPassword(){
     PASSWD_PATH="$HOME/.vnc/passwd"
 
     echo "$PASSWORD" | vncpasswd -f > $PASSWD_PATH
-    chmod 600 $PASSWD_PATH
+
 }
 
 function createLogs(){
@@ -112,7 +112,7 @@ fi
 
 VNC_IP=$(hostname -i)
 createLogs
-/usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION  -rfbauth "${HOME}/.vnc/passwd" $INTERFACE $SECURITY > $HOME/.vnc/xnvc.log & 
+/usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION -rfbport $VNC_PORT -rfbauth "${HOME}/.vnc/passwd" $INTERFACE $SECURITY > $HOME/.vnc/xnvc.log & 
 
 echo -e "\n\n------------------ VNC environment started ------------------"
 echo -e "\nVNCSERVER started on DISPLAY= $DISPLAY \n\t=> connect via VNC viewer with $VNC_IP:$VNC_PORT"
