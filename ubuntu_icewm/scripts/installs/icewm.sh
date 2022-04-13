@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+#set -e
 
 #Remove Pre-installted GUI component
 apt-get update

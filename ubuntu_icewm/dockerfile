@@ -44,27 +44,13 @@ RUN find $STARTUPDIR -name '*.sh' -exec chmod a+x {} +
 RUN exec ls -lhaR $INSTALL_SCRIPTS
 
 #-------Installs------
-#RUN exec $INSTALL_SCRIPTS/installs/i_utils.sh
-RUN exec $INSTALL_SCRIPTS/installs/i_vnc.sh
-RUN exec $INSTALL_SCRIPTS/installs/i_icewm.sh
-#RUN exec $INSTALL_SCRIPTS/installs/i_x11.sh
+RUN exec $INSTALL_SCRIPTS/installs/generic.sh
+RUN exec $INSTALL_SCRIPTS/installs/icewm.sh
 
-#DEBUG
-RUN find / -type f -name "vncsession"
 
 #-------Configs------
-RUN exec $INSTALL_SCRIPTS/configs/c_vnc.sh
-RUN exec $INSTALL_SCRIPTS/configs/set_user_permission.sh $STARTUPDIR $HOME
-RUN exec $INSTALL_SCRIPTS/configs/generic_config.sh
-
-
-
-RUN cat $HOME/.vnc/config
-RUN cat $HOME/.vnc/passwd
-
-
-RUN env
+RUN exec $INSTALL_SCRIPTS/configs/generic.sh
 
 USER $UID
 
-ENTRYPOINT ["/dockerstartup/s_vnc.sh"]
+ENTRYPOINT ["/dockerstartup/start_vnc.sh"]

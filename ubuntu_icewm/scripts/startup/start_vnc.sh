@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+#set -e
 
 ## print out help
 function help (){
@@ -12,7 +12,7 @@ function help (){
 
     OPTIONS:
     -u=USER, --user             Sets the username used in the image, default is isen
-    -p=PASSWORD, --password     Sets the VNC password to use, default isvncpassword
+    -p=PASSWORD, --password     Sets the VNC password to use, default is vncpassword
     -i=INTERFACE, --interface   Sets the interface to listen, defaults to all available interfaces
     -s=SECURITY, --security     Sets the security method of authentication/encryption, list options
                                 here : https://tigervnc.org/doc/Xvnc.html
@@ -27,12 +27,19 @@ function setUser(){
 }
 
 function setPassword(){
-    mkdir -p "$HOME/.vnc"
+
     PASSWD_PATH="$HOME/.vnc/passwd"
 
-    echo "$VNC_PASSWD" | vncpasswd -f > $PASSWD_PATH
+    echo "$PASSWORD" | vncpasswd -f > $PASSWD_PATH
     chmod 600 $PASSWD_PATH
 }
+
+function createLogs(){
+    if [ ! -f "$HOME/.vnc/xvnc.log" ]; then
+        touch $HOME/.vnc/xvnc.log
+    fi
+}
+
 
 INTERFACE=""
 SECURITY="-SecurityTypes VncAuth,TLSVnc"
@@ -88,24 +95,23 @@ done
 #service vncserver@:1 start
 #service vncserver@:1.service start
 
-VNC_IP=$(hostname -i)
 
+ls -lha $HOME/
+ls -lha $HOME/.vnc/
 #----------DEBUG------------ 
 if [[ $1 =~ -d|--debug ]]; then
-    tail -f $STARTUPDIR/*.log $HOME/.vnc/*$DISPLAY.log
+    
     echo "Display=${DISPLAY}"
-     #ls -lhaR /usr/bin/
+    #ls -lhaR /usr/bin/
     ls -lh $HOME/.vnc/
     cat $HOME/.vnc/xstartup
     cat $HOME/.vnc/passwd
-    if [ ! -f "$HOME/.vnc/xvnc.log" ]; then
-        touch $HOME/.vnc/xvnc.log
-    fi
+
 fi
 #----------------------
 
-
-
+VNC_IP=$(hostname -i)
+createLogs
 /usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION  -rfbauth "${HOME}/.vnc/passwd" $INTERFACE $SECURITY > $HOME/.vnc/xnvc.log & 
 
 echo -e "\n\n------------------ VNC environment started ------------------"
