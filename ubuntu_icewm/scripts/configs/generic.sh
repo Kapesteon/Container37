@@ -24,7 +24,7 @@ echo "0:${USER}" > /etc/tigerVNC/vncserver.users
 touch $HOME/.vnc/config
 echo "session="${WM} >> $HOME/.vnc/config
 echo "geometry=1920x1080" >> $HOME/.vnc/config
-echo "localhost" >> $HOME/.vnc/config
+echo "0.0.0.0" >> $HOME/.vnc/config
 echo "alwaysshared" >> $HOME/.vnc/config
 
 
@@ -58,7 +58,7 @@ chmod -R 755 $HOME/.vnc/passwd
 #-------------- User permission configs---------
 ################################################
 
-if [[ -n $DEBUG ]]; then
+if [ -n $DEBUG ]; then
     verbose="-v"
 fi
 
