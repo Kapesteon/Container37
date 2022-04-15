@@ -21,5 +21,5 @@ xset s off &
 
 /usr/bin/icewm-session > $HOME/wm.log &
 sleep 1
-killall xterm # killed not needed terminal !
+#killall xterm # killed not needed terminal !
 #cat $HOME/wm.log
