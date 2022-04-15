@@ -10,7 +10,8 @@ echo "Installing TigerVNC server"
 #set -e
 
 yum update #apt update
-yum -y install tigervnc-server # apt install -y tigervnc-standalone-server tigervnc-common tigervnc-xorg-extension xauth xinit #tigervnc
+# yum makecache
+yum -y install tigervnc-server # xorg-x11-xauth # xorg-x11-fonts-Type1 xorg-x11-server-utils x11-xserver-utils xorg-xset # xorg-xset # apt install -y tigervnc-standalone-server tigervnc-common tigervnc-xorg-extension xauth xinit #tigervnc
 #dpkg --configure -a
 
 

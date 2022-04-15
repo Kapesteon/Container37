@@ -14,11 +14,10 @@
 
 
 yum makecache
-yum -y install icewm
+yum -y install xorg-x11-fonts* xulrunner icewm
 yum groupremove "GNOME Desktop"
+yum -y groups install "Fonts"
+yum erase -y *power* *screensaver*
 rm ~/.xinitrc
-
-# a vérifier qu'il n'y a pas de groupe en trop
-yum grouplist
-
 yum clean all
+/bin/dbus-uuidgen > /etc/machine-id
