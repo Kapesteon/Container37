@@ -1,6 +1,6 @@
 # This Dockerfile is used to build an headles vnc image based on Centos
 
-FROM ubuntu:20.04
+FROM debian:bullseye
 
 #---------------------------SETUP ENV VARIABLES------------------------------#
 
@@ -8,8 +8,8 @@ ENV HOME=/home \
     USER=isen \
     UID=1000 \
     #Which Window manager to use (used in c_vnc.sh) Must be called the same as in /usr/share/xsessions
-    WM=icewm-session \
-    TERM=xterm \
+    WM=LXDE \
+    TERM=lxterminal \
     STARTUPDIR=/dockerstartup \
     INSTALL_SCRIPTS=/headless/install \
     NO_VNC_HOME=/headless/noVNC \

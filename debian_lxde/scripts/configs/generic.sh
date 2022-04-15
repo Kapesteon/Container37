@@ -38,12 +38,11 @@ echo "unset DBUS_SESSION_BUS_ADDRESS" >>$HOME/.vnc/xstartup
 echo "exec $(cat /usr/share/xsessions/${WM}.desktop | grep -w Exec | cut -d "/" -f 4) &" >>$HOME/.vnc/xstartup
 
 ##DEBUG##
-#ls -lha /usr/share/xsessions/
-#cat /usr/share/xsessions/icewm-session.desktop
-#cat /etc/tigerVNC/vncserver.users #DEBUG
-#cat $HOME/.vnc/xstartup #DEBUG
-#cat $HOME/.vnc/config #DEBUG
-
+ls -lha /usr/share/xsessions/.
+cat /usr/share/xsessions/${WM}.desktop
+cat /etc/tigerVNC/vncserver.users #DEBUG
+cat $HOME/.vnc/xstartup #DEBUG
+cat $HOME/.vnc/config #DEBUG
 #Run the exec value of the desktop (https://stackoverflow.com/questions/59709214/tigervncserver-crashes-unless-started-with-sudo)
 
 

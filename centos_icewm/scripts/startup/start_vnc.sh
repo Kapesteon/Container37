@@ -96,19 +96,19 @@ done
 #service vncserver@:1.service start
 
 
+ls -lha $HOME/
+ls -lha $HOME/.vnc/
 #----------DEBUG------------ 
-echo $DEBUG
-cat /etc/vnc.conf
-if [ "$DEBUG" = true ]; then
+if [[ $1 =~ -d|--debug ]]; then
     
     echo "Display=${DISPLAY}"
     #ls -lhaR /usr/bin/
     ls -lh $HOME/.vnc/
     cat $HOME/.vnc/xstartup
     cat $HOME/.vnc/passwd
-    cat /etc/vnc.conf
 
 fi
+#----------------------
 
 VNC_IP=$(hostname -i)
 createLogs

@@ -9,17 +9,17 @@ tail -f $STARTUPDIR/*.log $HOME/.vnc/*$DISPLAY.log
 echo "Display=${DISPLAY}"
 
 
-### disable screensaver and power management
-xset -dpms &
-xset s noblank &
-xset s off &
-
 if [ ! -f "$HOME/wm.log" ]; then
     touch $HOME/wm.log
 fi
 
 
+### disable screensaver and power management
+xset -dpms &
+xset s noblank &
+xset s off &
 
 /usr/bin/icewm-session > $HOME/wm.log &
 sleep 1
-cat $HOME/wm.log
+killall xterm # killed not needed terminal !
+#cat $HOME/wm.log
