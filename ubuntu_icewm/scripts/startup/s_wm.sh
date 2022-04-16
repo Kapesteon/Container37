@@ -4,7 +4,11 @@
 
 echo -e "\n------------------ startup of IceWM window manager ------------------"
 
-#----------DEBUG------------ 
+
+#----------BACKGROUND----------
+icewmbg -p --image=/headless/install/configs/wallpaper/ISEN-Code.jpg &
+
+#----------DEBUG------------
 tail -f $STARTUPDIR/*.log $HOME/.vnc/*$DISPLAY.log
 echo "Display=${DISPLAY}"
 
