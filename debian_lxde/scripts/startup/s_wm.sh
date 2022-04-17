@@ -18,3 +18,7 @@ fi
 /usr/bin/icewm-session > $HOME/wm.log &
 sleep 1
 #cat $HOME/wm.log
+
+-----
+#pcmanfm --set-#wallpaper="/headless/install/configs/wallpaper/ISEN-Code.jpg"
+-----

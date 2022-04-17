@@ -79,6 +79,9 @@ do
     chgrp -R 0 "$var" && chmod -R $verbose a+rw "$var" && find "$var" -type d -exec chmod $verbose a+x {} +
 done
 
+-----
+#chmod 777 -R $INSTALL_SCRIPTS/configs/wallpaper/
+-----
 
 #DEBUG
 #echo "Bin :"
