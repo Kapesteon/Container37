@@ -4,8 +4,6 @@
 
 echo -e "\n------------------ startup of IceWM window manager ------------------"
 
-#----------BACKGROUND----------
-icewmbg -p --image=/headless/install/configs/wallpaper/ISEN-Code.jpg &
 
 #----------DEBUG------------
 tail -f $STARTUPDIR/*.log $HOME/.vnc/*$DISPLAY.log
@@ -21,3 +19,6 @@ fi
 /usr/bin/icewm-session > $HOME/wm.log &
 sleep 1
 #cat $HOME/wm.log
+
+#----------BACKGROUND----------
+icewmbg -p --image=/headless/install/configs/wallpaper/ISEN-Code.jpg &
