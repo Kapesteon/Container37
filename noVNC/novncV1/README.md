@@ -12,4 +12,4 @@ Start noVNC:
 docker run novncdockerfile
 ```
 
-Connect to a specific vnc server with: http://localhost:6900/index.html?path=?token=localhostnickname
+Connect to a specific vnc server with: http://ip_no_vnc_container:6900/index.html?path=?token=localhostnickname
