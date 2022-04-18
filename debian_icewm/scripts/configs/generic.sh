@@ -83,20 +83,21 @@ done
 
 #DEBUG
 #echo "Bin :"
-#ls -lha /usr/bin/ 
+#ls -lha /usr/bin/
 #echo "Root :"
 #ls -lha /tmp/
 #echo "Alternatives :"
 #ls -lha /etc/alternatives/
 
-#chown root /usr/bin/xvnc 
+#chown root /usr/bin/xvnc
 chown root /usr/bin/Xtigervnc
 #chmod ug+s /usr/bin/xvnc #setuid for root, as it is necessary for /tmp/.X11-unix
 chmod ug+s /usr/bin/Xtigervnc
+
+chmod 777 -R $INSTALL_SCRIPTS/configs/wallpaper/
 ################################################
 #------------Add user to the system -----------
 ################################################
 mkdir /home/$USER
 useradd $USER --uid $UID -d /home/$USER
 chown -R $USER /home/$USER
-

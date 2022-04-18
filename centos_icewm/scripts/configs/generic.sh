@@ -24,7 +24,7 @@ echo "0:${USER}" > /etc/tigerVNC/vncserver.users
 touch $HOME/.vnc/config
 echo "session="${WM} >> $HOME/.vnc/config
 echo "geometry=1920x1080" >> $HOME/.vnc/config
-echo "0.0.0.0" >> $HOME/.vnc/config
+echo "localhost" >> $HOME/.vnc/config
 echo "alwaysshared" >> $HOME/.vnc/config
 
 
@@ -38,11 +38,12 @@ echo "unset DBUS_SESSION_BUS_ADDRESS" >>$HOME/.vnc/xstartup
 echo "exec $(cat /usr/share/xsessions/${WM}.desktop | grep -w Exec | cut -d "/" -f 4) &" >>$HOME/.vnc/xstartup
 
 ##DEBUG##
-ls -lha /usr/share/xsessions/.
-cat /usr/share/xsessions/${WM}.desktop
-cat /etc/tigerVNC/vncserver.users #DEBUG
-cat $HOME/.vnc/xstartup #DEBUG
-cat $HOME/.vnc/config #DEBUG
+#ls -lha /usr/share/xsessions/
+#cat /usr/share/xsessions/icewm-session.desktop
+#cat /etc/tigerVNC/vncserver.users #DEBUG
+#cat $HOME/.vnc/xstartup #DEBUG
+#cat $HOME/.vnc/config #DEBUG
+
 #Run the exec value of the desktop (https://stackoverflow.com/questions/59709214/tigervncserver-crashes-unless-started-with-sudo)
 
 
@@ -57,7 +58,7 @@ chmod -R 755 $HOME/.vnc/passwd
 #-------------- User permission configs---------
 ################################################
 
-if [ -n $DEBUG ]; then
+if [[ -n $DEBUG ]]; then
     verbose="-v"
 fi
 
@@ -79,9 +80,6 @@ do
     chgrp -R 0 "$var" && chmod -R $verbose a+rw "$var" && find "$var" -type d -exec chmod $verbose a+x {} +
 done
 
------
-#chmod 777 -R $INSTALL_SCRIPTS/configs/wallpaper/
------
 
 #DEBUG
 #echo "Bin :"
