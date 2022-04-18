@@ -15,7 +15,7 @@ fi
 
 
 
-exec startlxde
+exec enlightenment_start
 /usr/bin/${WM} > $HOME/wm.log &
 sleep 1
 #cat $HOME/wm.log
