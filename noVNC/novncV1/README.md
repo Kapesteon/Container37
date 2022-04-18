@@ -1,7 +1,9 @@
 # Installation
 
 Configure token.conf file like :
+
 localhostnickname1: localhost:5900
+
 localhostnickname2: localhost:5901
 
 Start noVNC:
