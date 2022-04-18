@@ -1,15 +1,13 @@
 # Installation
 
-Start Docker container with VNC server:
+Configure token.conf file like :
+localhostnickname1: localhost:5900
+localhostnickname2: localhost:5901
+
+Start noVNC:
 
 ```bash
-sudo docker run -p 5900:5900 vncdockerfile
+docker run novncdockerfile
 ```
 
-Start Docker container with noVNC:
-
-```bash
-docker run --rm --name novnc -p 6080:6080 -e AUTOCONNECT=true -e VNC_PASSWORD=vncpassword -e VNC_SERVER=172.17.0.2:5900 -e VIEW_ONLY=false novncdockerfile
-```
-
-Connect to: [http://localhost:6080/](http://localhost:6080/)
+Connect to a specific vnc server with: http://localhost:6900/index.html?path=?token=localhostnickname

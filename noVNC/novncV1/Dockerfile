@@ -6,6 +6,10 @@ ENV WEBSOCKIFY_TAG="v0.10.0"
 
 ENV VNC_SERVER "localhost:5900"
 
+ENV NO_VNC_PORT="6900"
+
+ENV TOKEN_DIR=/token
+
 RUN apk --no-cache --update --upgrade add \
         bash \
         python3 \
@@ -26,11 +30,14 @@ RUN git config --global advice.detachedHead false && \
 
 RUN cp /root/noVNC/vnc.html /root/noVNC/index.html
 
-RUN sed -i "/wait ${proxy_pid}/i if [ -n \"\$AUTOCONNECT\" ]; then sed -i \"s/'autoconnect', false/'autoconnect', '\$AUTOCONNECT'/\" /root/noVNC/app/ui.js; fi" /root/noVNC/utils/novnc_proxy
 
-RUN sed -i "/wait ${proxy_pid}/i if [ -n \"\$VNC_PASSWORD\" ]; then sed -i \"s/WebUtil.getConfigVar('password')/'\$VNC_PASSWORD'/\" /root/noVNC/app/ui.js; fi" /root/noVNC/utils/novnc_proxy
 
-RUN sed -i "/wait ${proxy_pid}/i if [ -n \"\$VIEW_ONLY\" ]; then sed -i \"s/UI.rfb.viewOnly = UI.getSetting('view_only');/UI.rfb.viewOnly = \$VIEW_ONLY;/\" /root/noVNC/app/ui.js; fi" /root/noVNC/utils/novnc_proxy
+ADD ./token $TOKEN_DIR/
+RUN cp -R /token /root/noVNC/utils/websockify/
 
-ENTRYPOINT [ "bash", "-c", "/root/noVNC/utils/novnc_proxy --vnc ${VNC_SERVER}" ]
+
+
+
+ENTRYPOINT [ "bash", "-c", "/root/noVNC/utils/websockify/run --web /root/noVNC/ --target-config /root/noVNC/utils/websockify/token/token.conf ${NO_VNC_PORT}" ]
+
 
