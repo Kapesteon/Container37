@@ -1,11 +1,10 @@
 version: "3.9"
 
-
 services:
   novnc:
     build: ./novnc/
-    restart: always # à mettre sur les xvnc aussi si on veut un redémarrage auto
-    ports: # port 80 exposé à l'extérieur pour accéder au port novnc
+    restart: always
+    ports:
       - "80:6900"
     networks:
       - net
@@ -14,7 +13,7 @@ services:
       - isolated3
 
   xvnc1:
-    build: ./ubuntu_icewm/ # Location of the dockerfile to build
+    build: ./ubuntu_icewm/
     environment:
       - USER=isen
       - VNC_PORT=5900
@@ -23,7 +22,7 @@ services:
     depends_on:
       - novnc
     networks:
-      - isolated1 # Isolated network proper to this xvnc image
+      - isolated1
 
   xvnc2:
     build: ./ubuntu_icewm/
