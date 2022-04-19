@@ -1,17 +1,13 @@
  #!/bin/bash
 
-#set -e
-
 ################################################
 #-------------- VNC & XVNC configs--------------
 ################################################
-#Steps taken from https://wiki.archlinux.org/title/TigerVNC#Running_Xvnc_with_XDMCP_for_on_demand_sessions
 
 #1
 mkdir -p "$HOME/.vnc"
 PASSWD_PATH="$HOME/.vnc/passwd"
 echo "$VNC_PASSWD" | vncpasswd -f > $PASSWD_PATH
-
 
 #2
 mkdir /etc/tigerVNC
@@ -24,7 +20,7 @@ echo "0:${USER}" > /etc/tigerVNC/vncserver.users
 touch $HOME/.vnc/config
 echo "session="${WM} >> $HOME/.vnc/config
 echo "geometry=1920x1080" >> $HOME/.vnc/config
-echo "localhost" >> $HOME/.vnc/config
+echo "0.0.0.0" >> $HOME/.vnc/config
 echo "alwaysshared" >> $HOME/.vnc/config
 
 #4
@@ -46,9 +42,6 @@ chmod -R 755 $HOME/.vnc/passwd
 #-------------- User permission configs---------
 ################################################
 
-if [[ -n $DEBUG ]]; then
-    verbose="-v"
-fi
 
 for var in ${STARTUPDIR}
 do
@@ -69,6 +62,7 @@ do
 done
 
 chown root /usr/bin/Xtigervnc
+#setuid for root, as it is necessary for /tmp/.X11-unix
 chmod ug+s /usr/bin/Xtigervnc
 
 chmod 777 -R $INSTALL_SCRIPTS/configs/wallpaper/
@@ -80,3 +74,27 @@ chmod 777 -R $INSTALL_SCRIPTS/configs/wallpaper/
 mkdir /home/$USER
 useradd $USER --uid $UID -d /home/$USER
 chown -R $USER /home/$USER
+
+
+
+################################################
+#------------- Add X509 certificate -----------
+################################################
+
+if [ "$IS_SECURE" = true ] ; then
+    N=`ls -A $INSTALL_SCRIPTS/cert/*.pem | wc -l 2>/dev/null`
+    if [ 2 -eq $N ] ; then
+        mkdir $HOME/.vnc/cert
+        mv $INSTALL_SCRIPTS/cert/*.pem $HOME/.vnc/cert/
+        chmod 444 $HOME/.vnc/cert/*
+        chmod 444 $HOME/.vnc/cert/
+        chmod 400 $HOME/.vnc/cert/$KEY
+    else
+        echo "Certificate & Keys not present in ${INSTALL_SCRIPTS}/cert/"
+        echo "Aborting..."
+        exit 1
+    fi
+
+fi
+
+exit 0

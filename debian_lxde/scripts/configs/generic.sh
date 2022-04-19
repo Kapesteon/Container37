@@ -42,9 +42,6 @@ chmod -R 755 $HOME/.vnc/passwd
 #-------------- User permission configs---------
 ################################################
 
-if [ -n $DEBUG ]; then
-    verbose="-v"
-fi
 
 for var in ${STARTUPDIR}
 do
@@ -64,10 +61,11 @@ do
     chgrp -R 0 "$var" && chmod -R $verbose a+rw "$var" && find "$var" -type d -exec chmod $verbose a+x {} +
 done
 
-chmod 777 -R $INSTALL_SCRIPTS/configs/wallpaper/
-
 chown root /usr/bin/Xtigervnc
+#setuid for root, as it is necessary for /tmp/.X11-unix
 chmod ug+s /usr/bin/Xtigervnc
+
+chmod 777 -R $INSTALL_SCRIPTS/configs/wallpaper/
 
 ################################################
 #------------Add user to the system -----------
@@ -77,3 +75,26 @@ mkdir /home/$USER
 useradd $USER --uid $UID -d /home/$USER
 chown -R $USER /home/$USER
 
+
+
+################################################
+#------------- Add X509 certificate -----------
+################################################
+
+if [ "$IS_SECURE" = true ] ; then
+    N=`ls -A $INSTALL_SCRIPTS/cert/*.pem | wc -l 2>/dev/null`
+    if [ 2 -eq $N ] ; then
+        mkdir $HOME/.vnc/cert
+        mv $INSTALL_SCRIPTS/cert/*.pem $HOME/.vnc/cert/
+        chmod 444 $HOME/.vnc/cert/*
+        chmod 444 $HOME/.vnc/cert/
+        chmod 400 $HOME/.vnc/cert/$KEY
+    else
+        echo "Certificate & Keys not present in ${INSTALL_SCRIPTS}/cert/"
+        echo "Aborting..."
+        exit 1
+    fi
+
+fi
+
+exit 0
