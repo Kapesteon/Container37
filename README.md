@@ -75,7 +75,7 @@ You can also decide to run an insecure connection, where only the VNC authentica
 
 To add a machine you have to add this block in the docker-compose file in the service part :
 
-``      
+```      
   xvnc1:
     build: ./ubuntu_icewm/
     environment:
@@ -85,15 +85,15 @@ To add a machine you have to add this block in the docker-compose file in the se
       - novnc
     networks:
       - isolated1 
-``
+```
       
 While incrementing 'VNC_PORT', 'xvncX' and 'isolatedX'.
 Then you have to add in the part Network the two following lines while incrementing the name of the network :
 
-``
+```
   isolated1:
     internal: true
-``
+```
 
 You can choose your type of machine by modifying the name of the folder in the 'build' line.
 You can also modify the VNC password per machine by modifying the 'VNC_PASSWORD' line in the service part.
