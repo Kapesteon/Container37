@@ -14,4 +14,4 @@ fi
 /usr/bin/startlxde > $HOME/wm.log &
 sleep 1
 
-#pcmanfm --set-#wallpaper="/headless/install/configs/wallpaper/ISEN-Code.jpg"
+pcmanfm --set-wallpaper="/headless/install/configs/wallpaper/ISEN-Code.jpg"
