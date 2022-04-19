@@ -2,7 +2,7 @@
 ### every exit != 0 fails the script
 #set -e
 
-echo -e "\n------------------ startup of IceWM window manager ------------------"
+echo -e "\n------------------ startup of Enlightenment window manager ------------------"
 
 #----------DEBUG------------ 
 tail -f $STARTUPDIR/*.log $HOME/.vnc/*$DISPLAY.log
@@ -16,6 +16,6 @@ fi
 
 
 exec enlightenment_start
-/usr/bin/${WM} > $HOME/wm.log &
+/usr/bin/enlightenment_start > $HOME/wm.log &
 sleep 1
 #cat $HOME/wm.log

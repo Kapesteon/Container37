@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#set -e
-
-#Remove Pre-installted GUI component
 apt-get update
 apt-get purge desktop-base
 apt-get autoremove
