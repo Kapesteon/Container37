@@ -5,7 +5,7 @@
 This is a student project required by ISEN Lille \
 This project aims to offer a base to tinker with. Because it is minimal not much is installed by default \
 It is up to you to install what you want according to your plan. \
-\
+
 
 
 This repository contains various images split in two part :
@@ -59,7 +59,7 @@ You can either choose to :\
 
       docker run -d -p 5900:5900 -e VNC_RESOLUTION=1920x1080 [YourImageName]:latest
 
-**NOTE: You cannot change either the password nor the username with this command, change the dockerfile directly**
+**NOTE: You cannot change neither the password nor the username with this command, change the dockerfile directly**
 
 *****
 
@@ -71,8 +71,7 @@ If the container is correctly started, connect via one of these options:
 
 * connect via any **VNC viewer** `[HostIP]:[HostPort]`, default password: `vncpassword`
 * connect via **noVNC HTML5**: [` http://[IP NO VNC CONTAINER]:6900/index.html?path=?token=[HOST NICKAME]`]( http://localhost:6900/index.html?path=?token=host1), default password: `vncpassword` 
-
-      More information in the [/novnc/readme.md](https://github.com/Kapesteon/Container37/tree/dev/novnc)
+More information in the [/novnc/readme.md](https://github.com/Kapesteon/Container37/tree/master/novnc)
 
 ## Security
 By default, the docker image runs in "Secure" mode, meaning that X.509 certificate are used to authenticate the server as well as
@@ -83,6 +82,7 @@ You can also decide to run an insecure connection, where only the VNC authentica
 
       docker run -d -p 5900:5900 -e IS_SECURE=false [YourImageName]:latest
       
+Disclaimer : This generationg script may not work properly on Windows
 
 # Tinkering
 ## Modify the number or type of machine
