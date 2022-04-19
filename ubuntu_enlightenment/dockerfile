@@ -1,0 +1,46 @@
+FROM ubuntu:20.04
+
+#---------------------------SETUP ENV VARIABLES------------------------------#
+
+ENV HOME=/home \
+    USER=isen \
+    UID=1000 \
+    WM=enlightenment \
+    TERM=xterm \
+    STARTUPDIR=/dockerstartup \
+    INSTALL_SCRIPTS=/headless/install \
+    NO_VNC_HOME=/headless/noVNC \
+    DEBIAN_FRONTEND=noninteractive \
+    VNC_COL_DEPTH=24 \
+    VNC_RESOLUTION=1280x1024 \
+    VNC_PASSWD=vncpassword 
+WORKDIR $HOME
+
+ENV DISPLAY=:0 \
+    VNC_PORT=5900 \
+    NO_VNC_PORT=6900
+EXPOSE $VNC_PORT $NO_VNC_PORT
+
+
+ADD ./scripts/installs/ $INSTALL_SCRIPTS/installs/
+ADD ./scripts/configs/ $INSTALL_SCRIPTS/configs/
+ADD ./scripts/startup/ $STARTUPDIR/
+
+
+#-----------------------------RUN INSTALLS--------------------------------------#
+RUN find $INSTALL_SCRIPTS -name '*.sh' -exec chmod a+x {} +
+RUN find $STARTUPDIR -name '*.sh' -exec chmod a+x {} +
+
+RUN exec ls -lhaR $INSTALL_SCRIPTS
+
+#-------Installs------
+RUN exec $INSTALL_SCRIPTS/installs/generic.sh
+RUN exec $INSTALL_SCRIPTS/installs/enlight.sh
+
+
+#-------Configs------
+RUN exec $INSTALL_SCRIPTS/configs/generic.sh
+
+USER $UID
+
+ENTRYPOINT ["/dockerstartup/start_vnc.sh"]

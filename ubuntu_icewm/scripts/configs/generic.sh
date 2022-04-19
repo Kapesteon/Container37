@@ -1,17 +1,13 @@
  #!/bin/bash
 
-set -e
-
 ################################################
 #-------------- VNC & XVNC configs--------------
 ################################################
-#Steps taken from https://wiki.archlinux.org/title/TigerVNC#Running_Xvnc_with_XDMCP_for_on_demand_sessions
 
 #1
 mkdir -p "$HOME/.vnc"
 PASSWD_PATH="$HOME/.vnc/passwd"
 echo "$VNC_PASSWD" | vncpasswd -f > $PASSWD_PATH
-
 
 #2
 mkdir /etc/tigerVNC
@@ -27,8 +23,6 @@ echo "geometry=1920x1080" >> $HOME/.vnc/config
 echo "0.0.0.0" >> $HOME/.vnc/config
 echo "alwaysshared" >> $HOME/.vnc/config
 
-
-
 #4
 touch $HOME/.vnc/xstartup
 echo "#!/bin/bash" >>$HOME/.vnc/xstartup
@@ -36,7 +30,6 @@ echo "PATH=/usr/bin:/usr/sbin" >>$HOME/.vnc/xstartup
 echo "unset SESSION_MANAGER" >>$HOME/.vnc/xstartup
 echo "unset DBUS_SESSION_BUS_ADDRESS" >>$HOME/.vnc/xstartup
 echo "exec $(cat /usr/share/xsessions/${WM}.desktop | grep -w Exec | cut -d "/" -f 4) &" >>$HOME/.vnc/xstartup
-
 
 #5
 chmod -R 711 /etc/tigerVNC
@@ -68,17 +61,16 @@ do
     chgrp -R 0 "$var" && chmod -R $verbose a+rw "$var" && find "$var" -type d -exec chmod $verbose a+x {} +
 done
 
-
-
 chown root /usr/bin/Xtigervnc
 #setuid for root, as it is necessary for /tmp/.X11-unix
 chmod ug+s /usr/bin/Xtigervnc
 
-
+chmod 777 -R $INSTALL_SCRIPTS/configs/wallpaper/
 
 ################################################
 #------------Add user to the system -----------
 ################################################
+
 mkdir /home/$USER
 useradd $USER --uid $UID -d /home/$USER
 chown -R $USER /home/$USER
@@ -90,8 +82,8 @@ chown -R $USER /home/$USER
 ################################################
 
 if [ "$IS_SECURE" = true ] ; then
-    echo `ls -A $INSTALL_SCRIPTS/cert/*.pem | wc -l 2>/dev/null`
-    if [ 2 -eq `ls -A $INSTALL_SCRIPTS/cert/*.pem | wc -l 2>/dev/null` ] ; then
+    N=`ls -A $INSTALL_SCRIPTS/cert/*.pem | wc -l 2>/dev/null`
+    if [ 2 -eq $N ] ; then
         mkdir $HOME/.vnc/cert
         mv $INSTALL_SCRIPTS/cert/*.pem $HOME/.vnc/cert/
         chmod 444 $HOME/.vnc/cert/*

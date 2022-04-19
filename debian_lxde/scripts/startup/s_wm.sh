@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-### every exit != 0 fails the script
-#set -e
 
-echo -e "\n------------------ startup of IceWM window manager ------------------"
+echo -e "\n------------------ startup of Lxde window manager ------------------"
 
 #----------DEBUG------------ 
 tail -f $STARTUPDIR/*.log $HOME/.vnc/*$DISPLAY.log
@@ -13,8 +11,7 @@ if [ ! -f "$HOME/wm.log" ]; then
     touch $HOME/wm.log
 fi
 
-
-
-/usr/bin/icewm-session > $HOME/wm.log &
+/usr/bin/startlxde > $HOME/wm.log &
 sleep 1
-#cat $HOME/wm.log
+
+#pcmanfm --set-#wallpaper="/headless/install/configs/wallpaper/ISEN-Code.jpg"
