@@ -1,6 +1,6 @@
  #!/bin/bash
 
-#set -e
+set -e
 
 ################################################
 #-------------- VNC & XVNC configs--------------
@@ -37,15 +37,6 @@ echo "unset SESSION_MANAGER" >>$HOME/.vnc/xstartup
 echo "unset DBUS_SESSION_BUS_ADDRESS" >>$HOME/.vnc/xstartup
 echo "exec $(cat /usr/share/xsessions/${WM}.desktop | grep -w Exec | cut -d "/" -f 4) &" >>$HOME/.vnc/xstartup
 
-##DEBUG##
-#ls -lha /usr/share/xsessions/
-#cat /usr/share/xsessions/icewm-session.desktop
-#cat /etc/tigerVNC/vncserver.users #DEBUG
-#cat $HOME/.vnc/xstartup #DEBUG
-#cat $HOME/.vnc/config #DEBUG
-
-#Run the exec value of the desktop (https://stackoverflow.com/questions/59709214/tigervncserver-crashes-unless-started-with-sudo)
-
 
 #5
 chmod -R 711 /etc/tigerVNC
@@ -58,9 +49,6 @@ chmod -R 755 $HOME/.vnc/passwd
 #-------------- User permission configs---------
 ################################################
 
-if [ -n $DEBUG ]; then
-    verbose="-v"
-fi
 
 for var in ${STARTUPDIR}
 do
@@ -81,18 +69,13 @@ do
 done
 
 
-#DEBUG
-#echo "Bin :"
-#ls -lha /usr/bin/ 
-#echo "Root :"
-#ls -lha /tmp/
-#echo "Alternatives :"
-#ls -lha /etc/alternatives/
 
-#chown root /usr/bin/xvnc 
 chown root /usr/bin/Xtigervnc
-#chmod ug+s /usr/bin/xvnc #setuid for root, as it is necessary for /tmp/.X11-unix
+#setuid for root, as it is necessary for /tmp/.X11-unix
 chmod ug+s /usr/bin/Xtigervnc
+
+
+
 ################################################
 #------------Add user to the system -----------
 ################################################
@@ -100,3 +83,26 @@ mkdir /home/$USER
 useradd $USER --uid $UID -d /home/$USER
 chown -R $USER /home/$USER
 
+
+
+################################################
+#------------- Add X509 certificate -----------
+################################################
+
+if [ "$IS_SECURE" = true ] ; then
+    echo `ls -A $INSTALL_SCRIPTS/cert/*.pem | wc -l 2>/dev/null`
+    if [ 2 -eq `ls -A $INSTALL_SCRIPTS/cert/*.pem | wc -l 2>/dev/null` ] ; then
+        mkdir $HOME/.vnc/cert
+        mv $INSTALL_SCRIPTS/cert/*.pem $HOME/.vnc/cert/
+        chmod 444 $HOME/.vnc/cert/*
+        chmod 444 $HOME/.vnc/cert/
+        chmod 400 $HOME/.vnc/cert/$KEY
+    else
+        echo "Certificate & Keys not present in ${INSTALL_SCRIPTS}/cert/"
+        echo "Aborting..."
+        exit 1
+    fi
+
+fi
+
+exit 0

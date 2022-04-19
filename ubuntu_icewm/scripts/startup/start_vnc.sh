@@ -6,33 +6,19 @@
 function help (){
     echo "
     USAGE:
-    docker run -it -p <NOVNCPORT>:6901 -p <VNCPORT>:5901 <IMAGE> <OPTION>
+    docker run -it -p <VNCPORT>:5900 <IMAGE> <OPTION>
 
 
 
     OPTIONS:
-    -u=USER, --user             Sets the username used in the image, default is isen
-    -p=PASSWORD, --password     Sets the VNC password to use, default is vncpassword
+
     -i=INTERFACE, --interface   Sets the interface to listen, defaults to all available interfaces
-    -s=SECURITY, --security     Sets the security method of authentication/encryption, list options
-                                here : https://tigervnc.org/doc/Xvnc.html
     -d, --debug                 Enables debug output
     -h, --help                  Print out this help
 
     "
 }
 
-function setUser(){
-    echo "0:${USR}" > /etc/tigerVNC/vncserver.users
-}
-
-function setPassword(){
-
-    PASSWD_PATH="$HOME/.vnc/passwd"
-
-    echo "$PASSWORD" | vncpasswd -f > $PASSWD_PATH
-
-}
 
 function createLogs(){
     if [ ! -f "$HOME/.vnc/xvnc.log" ]; then
@@ -42,32 +28,19 @@ function createLogs(){
 
 
 INTERFACE=""
-SECURITY="-SecurityTypes VncAuth,TLSVnc"
+DEBUG=false
+
 #
 # -----------  Arguments handling ------------ 
 #https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash
 for i in "$@"; do
   case $i in
-    -u=*|--user=*)
-        USER="${i#*=}"
-        setUser $USER
-        shift # past argument=value
-      ;;
-    -p=*|--password=*)
-        PASSWORD="${i#*=}"
-        setPassword
-        shift # past argument=value
-      ;;
     -i=*|--interface=*)
         INTERFACE="-interface ${i#*=}"
         shift # past argument=value
       ;;
-    -c|--clear)
-        SECURITY="-SecurityTypes ${i#*=}"
-        shift # past argument with no value
-      ;;
     -d|--debug)
-        DEBUG=$true
+        DEBUG=true
         shift # past argument with no value
       ;;
     -h|--help)
@@ -96,28 +69,44 @@ done
 #service vncserver@:1.service start
 
 
-#----------DEBUG------------ 
-echo $DEBUG
-cat /etc/vnc.conf
-if [ "$DEBUG" = true ]; then
-    
-    echo "Display=${DISPLAY}"
-    #ls -lhaR /usr/bin/
-    ls -lh $HOME/.vnc/
-    cat $HOME/.vnc/xstartup
-    cat $HOME/.vnc/passwd
-    cat /etc/vnc.conf
 
+
+
+if [[ $IS_SECURE == true ]] ; then
+    echo "Encryption enabled"
+    ##DEBUG
+    ## -X509Cert ${HOME}/.vnc/cert/${CERT} -X509Key ${HOME}/.vnc/cert/${KEY}
+    SECURITY="-SecurityTypes X509Vnc -X509Cert ${HOME}/.vnc/cert/${CERT} -X509Key ${HOME}/.vnc/cert/${KEY}"
+  else
+    echo "Encryption disabled"
+    SECURITY=""
 fi
+
 
 VNC_IP=$(hostname -i)
 createLogs
-/usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION -rfbport $VNC_PORT -rfbauth "${HOME}/.vnc/passwd" $INTERFACE $SECURITY > $HOME/.vnc/xnvc.log & 
+
+#/usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION -rfbport $VNC_PORT -rfbauth "${HOME}/.vnc/passwd" $SECURITY $INTERFACE \
+#  || rm -rfv /tmp/.X*-lock /tmp/.X11-unix &> $HOME/.vnc/xnvc.log || echo "no locks present"
+
+/usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION -rfbport $VNC_PORT -rfbauth "${HOME}/.vnc/passwd" $SECURITY $INTERFACE &
 
 echo -e "\n\n------------------ VNC environment started ------------------"
 echo -e "\nVNCSERVER started on DISPLAY= $DISPLAY \n\t=> connect via VNC viewer with $VNC_IP:$VNC_PORT"
 
 
+
+
+#----------DEBUG------------ 
+if [[ $DEBUG == true ]]; then
+    echo "Debug mode enabled"
+    ls -lh $HOME/.vnc/
+    cat /etc/vnc.conf
+    cat $STARTUPDIR/*.log
+    cat $HOME/.vnc/*.log
+    echo "User=`whoami`"
+    echo "Display=${DISPLAY}"
+fi
 
 $STARTUPDIR/s_wm.sh
 
