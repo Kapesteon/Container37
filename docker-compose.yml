@@ -17,7 +17,10 @@ services:
   xvnc1:
     build: ./ubuntu_icewm/ # emplacement du dockerfile correspondant
     environment:
+      - USER=isen
       - VNC_PORT=5900
+      - VNC_PASSWD=vncpassword
+      - IS_SECURE=true
     depends_on:
       - novnc
     networks:
@@ -26,7 +29,10 @@ services:
   xvnc2:
     build: ./ubuntu_icewm/
     environment:
+      - USER=isen
       - VNC_PORT=5901
+      - VNC_PASSWD=vncpassword
+      - IS_SECURE=true
     depends_on:
       - novnc
     networks:
@@ -35,7 +41,10 @@ services:
   xvnc3:
     build: ./ubuntu_icewm/
     environment:
+      - USER=isen
       - VNC_PORT=5902
+      - VNC_PASSWD=vncpassword
+      - IS_SECURE=true
     depends_on:
       - novnc
     networks:
