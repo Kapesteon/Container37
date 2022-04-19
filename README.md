@@ -16,9 +16,9 @@ This repository contains various images split in two part :
 
 ## Usage
 
-You can either choose to :
-1 - run images collectively (*intended way*)
-2 - run images individually
+You can either choose to :\
+1 - run images collectively (*intended way*)\
+2 - run images individually\
 
 ### 1 - Collectively
 - Default usage :
