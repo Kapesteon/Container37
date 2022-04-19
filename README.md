@@ -69,6 +69,35 @@ A "generateVNCCert.sh" script is provided to generate self signed certificate wh
 You can also decide to run an insecure connection, where only the VNC authentication will be used. Use this command :
 
       docker run -d -p 5900:5900 -e IS_SECURE=false [YourImageName]:latest
+      
+      
+## Modify the number or type of machine
+
+To add a machine you have to add this block in the docker-compose file in the service part :
+
+```      
+  xvnc1:
+    build: ./ubuntu_icewm/
+    environment:
+      - VNC_PORT=5900
+      - VNC_PASSWORD=vncpassword
+    depends_on:
+      - novnc
+    networks:
+      - isolated1 
+```
+      
+While incrementing 'VNC_PORT', 'xvncX' and 'isolatedX'.
+Then you have to add in the part Network the two following lines while incrementing the name of the network :
+
+```
+  isolated1:
+    internal: true
+```
+
+You can choose your type of machine by modifying the name of the folder in the 'build' line.
+You can also modify the VNC password per machine by modifying the 'VNC_PASSWORD' line in the service part.
+Then you have to build and run your docker-compose to see changes.
 
 
 
