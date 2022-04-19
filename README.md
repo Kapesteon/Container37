@@ -22,15 +22,21 @@ You can either choose to :
 
 ### 1 - Collectively
 - Default usage :
-    docker-compose
- [TO DO] 
-
+      
+      docker-compose build
+      docker-compose up
 
 ### 2 - Individually
 
 #### NoVNC image
+****
+- Build an image from the provided dockerfile:
 
- [TO DO] 
+      docker build [YourImageName] [PathToDockerFile]
+      
+- Run command with mapping to local port `80`
+
+      docker run -d -p 80:6900 [YourImageName]:latest
 
 #### XVNC image
 ****
@@ -51,9 +57,8 @@ You can either choose to :
       docker run -d -p 5900:5900 -e VNC_RESOLUTION=1920x1080 [YourImageName]:latest
 
 
-
 You can always choose to change any environnement to your liking by editing the dockerfile associated.
-Beware, you will need to build once again the dockerfile before running it.
+Beware, you will need to build once again the docker-compose or the dockerfile before running it.
   
 
 ## Security
@@ -71,7 +76,7 @@ You can also decide to run an insecure connection, where only the VNC authentica
 If the container is correctly started, connect via one of these options:
 
 * connect via any **VNC viewer** `[HostIP]:[HostPort]`, default password: `vncpassword`
-* connect via **noVNC HTML5**: [`http://localhost:6901/vnc.html`](http://localhost:6901/vnc.html), default password: `vncpassword` 
+* connect via **noVNC HTML5**: [`http://localhost/index.html`](http://localhost/index.html), default password: `vncpassword` 
 
 
 ## Current provided Distribution & Desktop Environnement pairs:
