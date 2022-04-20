@@ -55,7 +55,7 @@ done
 
 if [[ $IS_SECURE == true ]] ; then
     echo "Encryption enabled"
-    SECURITY="-SecurityTypes X509Vnc -X509Cert ${HOME}/.vnc/cert/${CERT} -X509Key ${HOME}/.vnc/cert/${KEY}"
+    SECURITY="-SecurityTypes VeNCrypt,TLSVnc,X509Vnc -X509Cert ${HOME}/.vnc/cert/${CERT} -X509Key ${HOME}/.vnc/cert/${KEY}"
   else
     echo "Encryption disabled"
     SECURITY=""
@@ -84,7 +84,7 @@ echo -e "\nVNCSERVER started on DISPLAY= $DISPLAY \n\t=> connect via VNC viewer 
 #----------DEBUG------------ 
 if [[ $DEBUG == true ]]; then
     echo "Debug mode enabled"
-    ls -lh $HOME/.vnc/
+    ls -lh $HOME/.vnc/ 
     cat /etc/vnc.conf
     cat $STARTUPDIR/*.log
     cat $HOME/.vnc/*.log
