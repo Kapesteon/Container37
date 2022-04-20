@@ -1,0 +1,1 @@
+touch /etc/X11/blackbox/blackbox-menu
