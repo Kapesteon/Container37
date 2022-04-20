@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-echo -e "\n------------------ startup of IceWM window manager ------------------"
+echo -e "\n------------------ startup of LXDE window manager ------------------"
 
 
 if [ ! -f "$HOME/wm.log" ]; then
     touch $HOME/wm.log
 fi
 
-/usr/bin/lxde > $HOME/wm.log &
+/usr/bin/startlxde > $HOME/wm.log &
 sleep 1
 
 #----------BACKGROUND----------

@@ -14,7 +14,7 @@ ENV HOME=/home \
     VNC_COL_DEPTH=24 \
     VNC_RESOLUTION=1280x1024 \
     VNC_PASSWD=vncpassword \
-    IS_SECURE=true \
+    IS_SECURE=false \
     KEY=vnc-server-private.pem \
     CERT=vnc-server.pem
 WORKDIR $HOME
