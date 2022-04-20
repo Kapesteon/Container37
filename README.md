@@ -170,6 +170,9 @@ Make sure to use the package manager according to your distribution :
 >Make sure that you either have certificates or `IS_SECURE` set to false (in docker-compose.yml)
 >Sometimes this project doesn't run well on Windows (regarding certificates)
 
+*I cannot start a secure connection if I use the `docker-compose` method*
+>As of today (20/04/2022), tigervnc doesn't not support VeNCrypt which noVNC requires, more info [here](https://github.com/novnc/noVNC/issues/1230) and [here](https://www.auto.tuwien.ac.at/~mkoegler/index.php/tlsvnc)
+
 ## Images
 
 **Diagram when running containers "individually"**

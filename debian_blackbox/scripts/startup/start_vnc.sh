@@ -65,6 +65,14 @@ fi
 VNC_IP=$(hostname -i)
 createLogs
 
+#If another server XVNC is somehow still running
+#We'll use another screen
+if [[  -e  /tmp/.X*-lock || -e /tmp/.X11-unix ]]; then
+  N=`ls -A /tmp/.X*-lock | wc -l 2>/dev/null`
+  DISPLAY=:${N}
+fi
+
+
 /usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION -rfbport $VNC_PORT -rfbauth "${HOME}/.vnc/passwd" $SECURITY $INTERFACE &
 sleep 2
 
