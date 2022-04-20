@@ -37,7 +37,7 @@ You can either choose to :\
        
        HostNickname01: [IP]:[PORT]
        HostNickname02: [IP]:[PORT]
-       ######
+       
 - Build an image from the provided dockerfile:
 
       docker build [YourImageName] [PathToDockerFile]
