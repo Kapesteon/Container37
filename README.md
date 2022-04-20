@@ -109,6 +109,7 @@ Copy paste this block
     networks:
       - isolated1
 ```
+
 You need to increment :
    * `VNC_PORT`
    * `xvncX`
@@ -130,6 +131,9 @@ You also have to add in the part Network the two following lines while increment
 ```
 
 You have to build and run your docker-compose to see changes.
+
+**IMPORTANT** : You also need to modify the index html page of noVNC you must edit `containers.json` in `/novnc/index/`
+
 
 ## Add or remove packages
 You can either install or unistall packages
