@@ -33,6 +33,11 @@ You can either choose to :\
 
 #### NoVNC image
 ****
+- Fill the token.conf file with vnc servers informations :
+       
+       HostNickname01: [HostIP]:[HostPORT]
+       HostNickname02: [HostIP]:[HostPORT]
+       
 - Build an image from the provided dockerfile:
 
       docker build [YourImageName] [PathToDockerFile]
@@ -134,14 +139,22 @@ Make sure to use the package manager according to your distribution :
 
 
 
-# Others
 
+# Others
 ## Current provided Distribution & Desktop Environnement pairs:
 *  **Ubuntu:20.04**    with     **icewm**
 *  **Ubuntu:20.04**    with     **enlightenment** 
 *  **Debian:bullseye** with     **icewm** 
 *  **Debian:bullseye** with     **LXDE**  
 *  **Debian:bullseye** with     **blackbox**  
+
+
+## Images
+
+**Diagram when running containers "individually"**
+![Diagram when running containers "individually"](./pics/sch_individual.png)
+**Diagram when running containers "collectively"**
+![Diagram when running containers "collectively"](./pics/sch_collectivel.png)
 
 ## Contributors
 
