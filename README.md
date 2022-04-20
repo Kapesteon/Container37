@@ -134,14 +134,22 @@ Make sure to use the package manager according to your distribution :
 
 
 
-# Others
 
+# Others
 ## Current provided Distribution & Desktop Environnement pairs:
 *  **Ubuntu:20.04**    with     **icewm**
 *  **Ubuntu:20.04**    with     **enlightenment** 
 *  **Debian:bullseye** with     **icewm** 
 *  **Debian:bullseye** with     **LXDE**  
 *  **Debian:bullseye** with     **blackbox**  
+
+
+## Images
+
+**Diagram when running containers "individually**
+![Diagram when running containers "individually" ](.pics/sch_individual.png)
+**Diagram when running containers "collectively**
+![Diagram when running containers "collectively" ](.pics/sch_collectivel.png)
 
 ## Contributors
 
