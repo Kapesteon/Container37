@@ -1,16 +1,16 @@
 @font-face {
 	font-family: 'Microgramma D';
-	src: url('../assets/fonts/Microgramma D.otf');
+	src: url('./assets/fonts/Microgramma D.otf');
 }
 html {
-	font-family: 'Microgramma D', sans-serif;
+	font-family: sans-serif;
 	min-height: 100vh;
 }
 body {
 	margin: 0;
 	padding: 30px;
 	background-color: khaki;
-	background-image: url('../assets/images/waves.svg');
+	background-image: url('./assets/images/waves.svg');
 	background-position: center bottom 50px;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -25,7 +25,7 @@ ul {
 	border: solid 8px black;
 	background-color: burlywood;
 	box-shadow: 20px 20px 0 rgba(0, 0, 0, 0.6);
-	background-image: url('../assets/images/points.svg');
+	background-image: url('./assets/images/points.svg');
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -39,6 +39,7 @@ ul li a {
 	border: solid 8px black;
 	background-color: peru;
 	box-shadow: 0 0 0 rgba(0, 0, 0, 0.8);
+	font-size: 14px;
 }
 ul li a:hover {
 	box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.6);
@@ -47,4 +48,7 @@ ul li a:hover {
 ul li img {
 	width: 100%;
 	height: 100%;
+}
+h1 {
+	font-family: 'Microgramma D', sans-serif;
 }

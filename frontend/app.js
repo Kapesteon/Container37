@@ -1,5 +1,6 @@
-import containers from './containers.json'
-console.log(containers)
+const containers = await fetch('./containers.json').then((response) =>
+  response.json(),
+)
 
 if ('content' in document.createElement('template')) {
   const template = document.querySelector('#container')
@@ -9,8 +10,9 @@ if ('content' in document.createElement('template')) {
     const clone = document.importNode(template.content, true)
     const a = clone.querySelector('a')
     a.href = container
-    const span = clone.querySelector('span')
-    span.textContent = i + 1
+    const span = clone.querySelectorAll('span')
+    span[0].textContent = i + 1
+    span[1].textContent = container
 
     ul.appendChild(clone)
   })
