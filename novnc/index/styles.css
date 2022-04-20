@@ -1,6 +1,6 @@
 @font-face {
 	font-family: 'Microgramma D';
-	src: url('../assets/fonts/Microgramma D.otf');
+	src: url('./assets/fonts/Microgramma D.otf');
 }
 html {
 	font-family: 'Microgramma D', sans-serif;
@@ -10,7 +10,7 @@ body {
 	margin: 0;
 	padding: 30px;
 	background-color: khaki;
-	background-image: url('../assets/images/waves.svg');
+	background-image: url('./assets/images/waves.svg');
 	background-position: center bottom 50px;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -25,7 +25,7 @@ ul {
 	border: solid 8px black;
 	background-color: burlywood;
 	box-shadow: 20px 20px 0 rgba(0, 0, 0, 0.6);
-	background-image: url('../assets/images/points.svg');
+	background-image: url('./assets/images/points.svg');
 	background-repeat: no-repeat;
 	background-size: cover;
 }
