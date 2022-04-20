@@ -74,6 +74,7 @@ createLogs
 #  || rm -rfv /tmp/.X*-lock /tmp/.X11-unix &> $HOME/.vnc/xnvc.log || echo "no locks present"
 
 /usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION -rfbport $VNC_PORT -rfbauth "${HOME}/.vnc/passwd" $SECURITY $INTERFACE &
+sleep 2
 
 echo -e "\n\n------------------ VNC environment started ------------------"
 echo -e "\nVNCSERVER started on DISPLAY= $DISPLAY \n\t=> connect via VNC viewer with $VNC_IP:$VNC_PORT"
