@@ -58,8 +58,6 @@ done
 
 if [[ $IS_SECURE == true ]] ; then
     echo "Encryption enabled"
-    ##DEBUG
-    ## -X509Cert ${HOME}/.vnc/cert/${CERT} -X509Key ${HOME}/.vnc/cert/${KEY}
     SECURITY="-SecurityTypes X509Vnc -X509Cert ${HOME}/.vnc/cert/${CERT} -X509Key ${HOME}/.vnc/cert/${KEY}"
   else
     echo "Encryption disabled"
@@ -69,10 +67,6 @@ fi
 
 VNC_IP=$(hostname -i)
 createLogs
-
-#/usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION -rfbport $VNC_PORT -rfbauth "${HOME}/.vnc/passwd" $SECURITY $INTERFACE \
-#  || rm -rfv /tmp/.X*-lock /tmp/.X11-unix &> $HOME/.vnc/xnvc.log || echo "no locks present"
-
 /usr/bin/Xvnc $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION -rfbport $VNC_PORT -rfbauth "${HOME}/.vnc/passwd" $SECURITY $INTERFACE &
 sleep 2
 

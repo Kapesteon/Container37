@@ -1,6 +1,5 @@
-# This Dockerfile is used to build an headles vnc image based on Centos
-
 FROM debian:bullseye
+
 #---------------------------SETUP ENV VARIABLES------------------------------#
 
 ENV HOME=/home \
@@ -32,17 +31,19 @@ ADD ./scripts/configs/ $INSTALL_SCRIPTS/configs/
 ADD ./scripts/startup/ $STARTUPDIR/
 
 #-----------------------------RUN INSTALLS--------------------------------------#
+
 RUN find $INSTALL_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 RUN find $STARTUPDIR -name '*.sh' -exec chmod a+x {} +
 
 RUN exec ls -lhaR $INSTALL_SCRIPTS
 
 #-------Installs------
+
 RUN exec $INSTALL_SCRIPTS/installs/generic.sh
 RUN exec $INSTALL_SCRIPTS/installs/blackbox.sh
 
-
 #-------Configs------
+
 RUN exec $INSTALL_SCRIPTS/configs/generic.sh
 
 USER $UID
