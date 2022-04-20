@@ -152,6 +152,23 @@ Make sure to use the package manager according to your distribution :
 *  **Debian:bullseye** with     **LXDE**  
 *  **Debian:bullseye** with     **blackbox**  
 
+## Known issues / FAQ
+
+*I can't run any docker container after awhile* 
+> Make sure that your Docker environnement has enough space on your host, sometimes installs won't properly be completed because of this.\
+> Clear the space and build once again.
+
+*My Window manager displays lots of errors when the xvnc server launches*
+> Some window manager requires **services** for some of their features, but because these services are disabled, errors are shown in the console
+> However the window manager should still work as intended
+
+*My self signed certificates are recognised as invalid by the client when connecting*
+> This is because you are not an official certificate provider, this does not prevent from getting and encrypted connection
+> and reading the certificate manually to check the server is the trusty one
+
+*My docker image XVNC won't run*
+>Make sure that you either have certificates or `IS_SECURE` set to false (in docker-compose.yml)
+>Sometimes this project doesn't run well on Windows (regarding certificates)
 
 ## Images
 

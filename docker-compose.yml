@@ -23,30 +23,9 @@ services:
       - novnc
     networks:
       - isolated1
+    cap_add:
+      - LINUX_IMMUTABLE
 
-  xvnc2:
-    build: ./ubuntu_icewm/
-    environment:
-      - USER=isen
-      - VNC_PORT=5901
-      - VNC_PASSWD=vncpassword
-      - IS_SECURE=true
-    depends_on:
-      - novnc
-    networks:
-      - isolated2
-
-  xvnc3:
-    build: ./ubuntu_icewm/
-    environment:
-      - USER=isen
-      - VNC_PORT=5902
-      - VNC_PASSWD=vncpassword
-      - IS_SECURE=true
-    depends_on:
-      - novnc
-    networks:
-      - isolated3
 
 networks:
   isolated1:

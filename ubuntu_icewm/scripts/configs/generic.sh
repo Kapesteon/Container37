@@ -75,7 +75,12 @@ mkdir /home/$USER
 useradd $USER --uid $UID -d /home/$USER
 chown -R $USER /home/$USER
 
-
+################################################
+#----Add script to remove old server locks------
+################################################
+chown root $STARTUPDIR/remove_lock.sh
+#setuid for root, as it is necessary for /tmp/.X11-unix
+chmod ug+s $STARTUPDIR/remove_lock.sh
 
 ################################################
 #------------- Add X509 certificate -----------
