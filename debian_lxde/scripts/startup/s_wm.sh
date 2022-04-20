@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo -e "\n------------------ startup of IceWM window manager ------------------"
+echo -e "\n------------------ startup of LXDE window manager ------------------"
 
 
 if [ ! -f "$HOME/wm.log" ]; then
