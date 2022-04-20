@@ -1,12 +1,12 @@
 [
-  "/?path=?token=host1",
-  "/?path=?token=host2",
-  "/?path=?token=host3",
-  "/?path=?token=host4",
-  "/?path=?token=host5",
-  "/?path=?token=host6",
-  "/?path=?token=host7",
-  "/?path=?token=host8",
-  "/?path=?token=host9",
-  "/?path=?token=host10"
+  "/vnc.html?path=?token=host1",
+  "/vnc.html?path=?token=host2",
+  "/vnc.html?path=?token=host3",
+  "/vnc.html?path=?token=host4",
+  "/vnc.html?path=?token=host5",
+  "/vnc.html?path=?token=host6",
+  "/vnc.html?path=?token=host7",
+  "/vnc.html?path=?token=host8",
+  "/vnc.html?path=?token=host9",
+  "/vnc.html?path=?token=host10"
 ]
