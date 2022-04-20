@@ -33,10 +33,10 @@ You can either choose to :\
 
 #### NoVNC image
 ****
-- Fill the token.conf file with vnc servers infomations :
+- Fill the token.conf file with vnc servers informations :
        
-       HostNickname01: [IP]:[PORT]
-       HostNickname02: [IP]:[PORT]
+       HostNickname01: [HostIP]:[HostPORT]
+       HostNickname02: [HostIP]:[HostPORT]
        
 - Build an image from the provided dockerfile:
 
