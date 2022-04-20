@@ -151,9 +151,9 @@ Make sure to use the package manager according to your distribution :
 
 ## Images
 
-**Diagram when running containers "individually**
+**Diagram when running containers "individually"**
 ![Diagram when running containers "individually"](./pics/sch_individual.png)
-**Diagram when running containers "collectively**
+**Diagram when running containers "collectively"**
 ![Diagram when running containers "collectively"](./pics/sch_collectivel.png)
 
 ## Contributors
