@@ -9,6 +9,7 @@ ENV VNC_SERVER "localhost:5900"
 ENV NO_VNC_PORT="6900"
 
 ENV TOKEN_DIR=/token
+ENV INDEX_DIR=/index
 
 RUN apk --no-cache --update --upgrade add \
         bash \
@@ -28,9 +29,7 @@ RUN git config --global advice.detachedHead false && \
     git clone https://github.com/novnc/noVNC --branch ${NOVNC_TAG} /root/noVNC && \
     git clone https://github.com/novnc/websockify --branch ${WEBSOCKIFY_TAG} /root/noVNC/utils/websockify
 
-RUN cp /root/noVNC/vnc.html /root/noVNC/index.html
-
-
+ADD ./index /root/noVNC/
 
 ADD ./token $TOKEN_DIR/
 RUN cp -R /token /root/noVNC/utils/websockify/
